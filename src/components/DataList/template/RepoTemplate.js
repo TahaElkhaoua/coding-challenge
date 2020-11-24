@@ -1,9 +1,11 @@
 import React from 'react';
+import './RepoTemplate.css'
 
-const RepoTemplate = () => {
+const RepoTemplate = (props) => {
+    const {owner, ownerImg, name, description, stars, hasIssues, openIssues} = props;
     return (
-        <div>
-                Repo template
+        <div className="repository">
+            
         </div>
     );
 };
