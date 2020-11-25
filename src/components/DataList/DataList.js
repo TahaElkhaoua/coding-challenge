@@ -50,7 +50,7 @@ class DataList extends Component {
 
     loadRepos(){
         //check if repos is already Fetched
-        if(this.repos.length != 0){
+        if(this.repos.length !== 0){
             (this.state.displayedRepos.length === this.repos.length) ? //check if all repos are displayed 
             this.setState({showNext: true}) : //if yes display next page button
             this.setState(prevState => {
@@ -97,9 +97,9 @@ class DataList extends Component {
     }
 
     handleScroll(event){
+         //Detect when user hits list bottom and load more elements into UI
         const target = event.target
-        // console.log(target.scrollHeight, target.scrollTop, target.clientHeight)
-        if(((target.scrollHeight - target.scrollTop ) <= (target.clientHeight + 200)) && this.repos.length != 0 && !this.state.showNext){
+        if(((target.scrollHeight - target.scrollTop ) <= (target.clientHeight + 200)) && this.repos.length !== 0 && !this.state.showNext){
             this.loadRepos()
         }
     }
@@ -114,14 +114,14 @@ class DataList extends Component {
                     <div className="data-list-content">
                             {(this.state.error) ? null : (
                                 <div>
-                                    <h1 className="title">Have a wonderful experience👽</h1>
+                                    <h1 className="title">Have a wonderful experience 👽</h1>
                                     <p className="paragraph">the most starred Github repos that were created in the last 30 days :</p>
                                 </div>
                             )}
                             {this.renderRepos()}
                     </div>
                     {(this.state.showNext) ? (
-                            <Link  to={`/${(++this.state.page)}`}><button className="next-page">Load next page?</button></Link>
+                            <Link  to={`/${(parseInt(this.state.page)+1)}`}><button className="next-page">Load next page?</button></Link>
                         ) : null}
                 </div>
             </div>
