@@ -5,8 +5,8 @@ Our simple app will be retieving repositories data from github and structuring
 it using React for the UI.
 
     Building our app functionality will go through the following Steps :
-        * Retrieving JSON data from github : [ ]
-        * Filtering Data into a list of components : [ ]
+        * Retrieving JSON data from github : [X]
+        * Filtering Data into a list of components : [X]
         * Formatting components ( Adding a repositorie template for each repo) : [ ]
         * Adding stylesheets to render a beautiful UI : [ ]
 

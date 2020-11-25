@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
+
 
 import { URL } from '../../config/config'
 
@@ -13,9 +15,10 @@ class DataList extends Component {
         displayedRepos: [], // An Array to hold all the displayed repos
         error: false, //Error Detector
         errorMsg: ``,
-        showNext: false
+        showNext: false,
+        currentSlice: 0
     }
-    repos = [] 
+    repos = [] //only gets updated once no need to be in state
 
     //Getting the JSON Data through axios
     UNSAFE_componentWillMount(){
@@ -24,23 +27,35 @@ class DataList extends Component {
     }
 
     loadRepos(){
+        //check if repos is already Fetched
+        if(this.repos.length != 0){
+            (this.state.displayedRepos.length === this.repos.length) ? //check if all repos are displayed 
+            this.setState({showNext: true}) : //if yes display next page button
+            this.setState(prevState => {
+                return {
+                    displayedRepos: [...prevState.displayedRepos, ...this.repos.slice(prevState.currentSlice, prevState.currentSlice + 5)],
+                    currentSlice: prevState.currentSlice + 5
+                }
+            })
+
+            return true;
+        }
         //the actual data fetch code
         axios.get(`${URL}/page`)
         .then(result => { //Data Retrieved Successfuly
             this.repos = result.data.items
             this.setState({
-                displayedRepos: [...this.repos.slice(0, 10)]
+                displayedRepos: [...this.repos.slice(0, 5)],
+                currentSlice: 5
             })
         })
         .catch(err=>this.setState({
             error: true,
             errorMsg: err.message
         }))
-
-        this.renderRepos(this.state.displayedRepos)
     } 
     //render the repositories into a list
-    renderRepos(reposData){
+    renderRepos(){
     return ((this.state.error) ?  //check if there s an error if not display data through template
     (<div className="error-danger">{this.state.errorMsg}</div>)
      : this.state.displayedRepos.map((repo, i) => {
@@ -64,10 +79,10 @@ class DataList extends Component {
                     <div className="loader"></div> {/* Loader box */}
                     <div className="data-list-content">
                         {this.renderRepos()}
-                        {(this.state.showNext) ? (
-                            <button>Next Page</button>
-                        ) : null}
                     </div>
+                    {(this.state.showNext) ? (
+                            <Link className="next-page" to={`/${this.state.page + 1}`}>Next Page</Link>
+                        ) : null}
                 </div>
             </div>
         )
