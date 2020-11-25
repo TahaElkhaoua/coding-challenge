@@ -10,8 +10,13 @@ import './DataList.css'
 
 
 class DataList extends Component {
+    constructor(props){
+        super(props)
+        this.myRef = React.createRef()   // Create a ref object 
+    }
+
     state = {
-        page: (this.props.match.params.page) ? this.props.match.params.page : 0, //page number
+        page: (this.props.match.params.page) ? this.props.match.params.page : 0, //page number,
         displayedRepos: [], // An Array to hold all the displayed repos
         error: false, //Error Detector
         errorMsg: ``,
@@ -26,11 +31,22 @@ class DataList extends Component {
         this.loadRepos()
     }
 
-    isB
+    componentWillReceiveProps(props){ // handle page update
+        this.myRef.current.scrollTo(0, 0);
+        this.repos = [] 
+            this.setState({
+                page: (props.match.params.page) ? props.match.params.page : 0, //page number,
+                displayedRepos: [], // An Array to hold all the displayed repos
+                error: false, //Error Detector
+                errorMsg: ``,
+                showNext: false,
+                currentSlice: 0
+            })
+            this.loadRepos()
+    }
 
     loadRepos(){
         //check if repos is already Fetched
-        console.log(this.state.displayedRepos)
         if(this.repos.length != 0){
             (this.state.displayedRepos.length === this.repos.length) ? //check if all repos are displayed 
             this.setState({showNext: true}) : //if yes display next page button
@@ -44,7 +60,7 @@ class DataList extends Component {
             return true; // stop here if data already exists
         }
         //the actual data fetch code
-        axios.get(`${URL}/page`)
+        axios.get(`${URL}&page=${this.state.page}`)
         .then(result => { //Data Retrieved Successfuly
             this.repos = result.data.items
             this.setState({
@@ -86,14 +102,16 @@ class DataList extends Component {
 
     render(){
         return (
-            <div className={`content`} onScroll={(e) => this.handleScroll(e)}>
+            <div className={`content`} onScroll={(e) => this.handleScroll(e)} ref={this.myRef}>
                 <div className={`data-list data-list-${(this.repos.length === 0) ? 'loading' : 'loaded'}`}> {/* different classes for when components are loading */}
-                    <div className="loader"></div> {/* Loader box */}
+                    <div className="loader">
+                        <div className="loader-rotate"></div>    
+                    </div> {/* Loader box */}
                     <div className="data-list-content">
                         {this.renderRepos()}
                     </div>
                     {(this.state.showNext) ? (
-                            <Link className="next-page" to={`/${this.state.page + 1}`}>Next Page</Link>
+                            <Link  to={`/${(++this.state.page)}`}><button className="next-page">Load next page?</button></Link>
                         ) : null}
                 </div>
             </div>
