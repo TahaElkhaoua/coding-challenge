@@ -102,6 +102,9 @@
             grid-template-rows: repeat(3, 33%);
             grid-template-columns: 100%;
         }
+        .info > * {
+            width: 100%;
+        }
         .stars, .issues {
             text-align: center;
         }

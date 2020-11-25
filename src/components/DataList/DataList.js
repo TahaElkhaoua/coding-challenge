@@ -91,6 +91,7 @@ class DataList extends Component {
                         stars={repo.stargazers_count}
                         hasIssues={repo.has_issues}
                         openIssues={repo.open_issues}
+                        timestamp={repo.created_at}
                     /> // A repo template to keep code seperated and cleaner
                 )
             }))

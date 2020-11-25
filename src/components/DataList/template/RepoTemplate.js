@@ -4,7 +4,8 @@ import './RepoTemplate.css'
 import { GiRoundStar, GiAnimalSkull } from 'react-icons/gi'
 
 const RepoTemplate = (props) => {
-    const {owner, ownerImg, name, description, stars, hasIssues, openIssues} = props //destructoring props data
+    const {owner, ownerImg, name, description, stars, hasIssues, openIssues, timestamp} = props //destructoring props data
+    const date = new Date(timestamp)
     return (
         <div className="repository">
             <div className="image" style={{
@@ -16,7 +17,7 @@ const RepoTemplate = (props) => {
                 <div className="info">
                     <div className="stars" title="Stars"><GiRoundStar /><GiRoundStar /><GiRoundStar />: {stars}</div>
                     <div className="issues" title="Issues"><GiAnimalSkull />: {(hasIssues) ? openIssues: 0}</div>
-                    <div className="date">Submitted 30days ago by {name}</div>
+                    <div className="date">Submitted {date.toDateString()} by {owner}</div>
                 </div>
             </div>
         </div>
