@@ -16,6 +16,16 @@ Our app has simple functionality therefor won't be needing a lot of libraries, a
 they can be summed into the following :
 
     - Basic React Libraries and react-router-dom : to handle HTTP requests.
-    - axios : to handle fetch requests (the use of axios is a personal preference Javascript Fetch could    also be used).
+    - axios : to handle fetch requests (the use of axios is a personal preference
+     Javascript Fetch could also be used).
     - react-icons : for rendering custom UI icons. 
+
+# HOW TO RUN PROJECT
+
+All you have to do to run our App is clone the project using the following command :
+    git clone git@github.com:TahaElkhaoua/coding-challenge.git
+
+Navigate to app directory and run : npm start
+
+Have a wonderful experience 👽
 
