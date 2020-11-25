@@ -26,8 +26,11 @@ class DataList extends Component {
         this.loadRepos()
     }
 
+    isB
+
     loadRepos(){
         //check if repos is already Fetched
+        console.log(this.state.displayedRepos)
         if(this.repos.length != 0){
             (this.state.displayedRepos.length === this.repos.length) ? //check if all repos are displayed 
             this.setState({showNext: true}) : //if yes display next page button
@@ -38,7 +41,7 @@ class DataList extends Component {
                 }
             })
 
-            return true;
+            return true; // stop here if data already exists
         }
         //the actual data fetch code
         axios.get(`${URL}/page`)
@@ -56,26 +59,35 @@ class DataList extends Component {
     } 
     //render the repositories into a list
     renderRepos(){
-    return ((this.state.error) ?  //check if there s an error if not display data through template
-    (<div className="error-danger">{this.state.errorMsg}</div>)
-     : this.state.displayedRepos.map((repo, i) => {
-        return (
-            <RepoTemplate key={i}
-                owner={repo.owner.login}
-                ownerImg={repo.owner.avatar_url}
-                name={repo.name}
-                description={repo.description}
-                stars={repo.stargazers_count}
-                hasIssues={repo.has_issues}
-                openIssues={repo.open_issues}
-            /> // A repo template to keep code seperated and cleaner
-        )
-        }))
+        return ((this.state.error) ?  //check if there s an error if not display data through template
+            (<div className="error-danger">{this.state.errorMsg}</div>)
+            : this.state.displayedRepos.map((repo, i) => {
+                return (
+                    <RepoTemplate key={i}
+                        owner={repo.owner.login}
+                        ownerImg={repo.owner.avatar_url}
+                        name={repo.name}
+                        description={repo.description}
+                        stars={repo.stargazers_count}
+                        hasIssues={repo.has_issues}
+                        openIssues={repo.open_issues}
+                    /> // A repo template to keep code seperated and cleaner
+                )
+            }))
     }
+
+    handleScroll(event){
+        const target = event.target
+        // console.log(target.scrollHeight, target.scrollTop, target.clientHeight)
+        if(((target.scrollHeight - target.scrollTop ) <= (target.clientHeight + 200)) && this.repos.length != 0 && !this.state.showNext){
+            this.loadRepos()
+        }
+    }
+
     render(){
         return (
-            <div className={`content`}>
-                <div className={`data-list data-list-${(this.repos.length === 0) ? 'loaded' : 'loading'}`}> {/* different classes for when components are loading */}
+            <div className={`content`} onScroll={(e) => this.handleScroll(e)}>
+                <div className={`data-list data-list-${(this.repos.length === 0) ? 'loading' : 'loaded'}`}> {/* different classes for when components are loading */}
                     <div className="loader"></div> {/* Loader box */}
                     <div className="data-list-content">
                         {this.renderRepos()}

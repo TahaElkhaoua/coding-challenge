@@ -1,5 +1,9 @@
 .content {
-    width: 80%;
+    width: 100%;
+    padding: 5rem 10rem;
+
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .data-list-content {
