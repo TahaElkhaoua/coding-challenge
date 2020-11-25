@@ -8,6 +8,9 @@ import { URL } from '../../config/config'
 import RepoTemplate from './template/RepoTemplate'
 import './DataList.css'
 
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
+
 
 class DataList extends Component {
     constructor(props){
@@ -67,16 +70,17 @@ class DataList extends Component {
                 displayedRepos: [...this.repos.slice(0, 5)],
                 currentSlice: 5
             })
+        }).catch(err=>{
+            this.setState({
+                error: true,
+                errorMsg: err.message
+            })
         })
-        .catch(err=>this.setState({
-            error: true,
-            errorMsg: err.message
-        }))
     } 
     //render the repositories into a list
     renderRepos(){
-        return ((this.state.error) ?  //check if there s an error if not display data through template
-            (<div className="error-danger">{this.state.errorMsg}</div>)
+         //check if there s an error if not display data through template
+        return ((this.state.error) ? (<div className="error-danger">{this.state.errorMsg}</div>)
             : this.state.displayedRepos.map((repo, i) => {
                 return (
                     <RepoTemplate key={i}
@@ -103,12 +107,18 @@ class DataList extends Component {
     render(){
         return (
             <div className={`content`} onScroll={(e) => this.handleScroll(e)} ref={this.myRef}>
-                <div className={`data-list data-list-${(this.repos.length === 0) ? 'loading' : 'loaded'}`}> {/* different classes for when components are loading */}
+                <div className={`data-list data-list-${(this.repos.length === 0 && !this.state.error) ? 'loading' : 'loaded'}`}> {/* different classes for when components are loading */}
                     <div className="loader">
-                        <div className="loader-rotate"></div>    
+        <AiOutlineLoading3Quarters className="loader-rotate"></AiOutlineLoading3Quarters>    
                     </div> {/* Loader box */}
                     <div className="data-list-content">
-                        {this.renderRepos()}
+                            {(this.state.error) ? null : (
+                                <div>
+                                    <h1 className="title">Have a wonderful experience👽</h1>
+                                    <p className="paragraph">the most starred Github repos that were created in the last 30 days :</p>
+                                </div>
+                            )}
+                            {this.renderRepos()}
                     </div>
                     {(this.state.showNext) ? (
                             <Link  to={`/${(++this.state.page)}`}><button className="next-page">Load next page?</button></Link>

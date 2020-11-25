@@ -1,7 +1,68 @@
 .repository {
     width: 100%;
-    min-height: 35rem;
+    height: 30rem;
+
+    cursor: pointer;
 
     background-color: rgb(253, 250, 250);
     margin-bottom: 10rem;
+
+    display: flex;
+    flex-direction: row;   
+    transition: all .5s cubic-bezier(0.23, 1, 0.320, 1); 
+    /* border-top: 1rem solid #ed6072; */
+
 }
+.repository:hover {
+    /* border: 1rem solid white;  */
+    height: 31rem;
+    border-top: 1rem solid #ed6072;
+    /* border-bottom: none; */
+}
+.image {
+    width: 30%;
+    height: 100%;
+
+    background-size: cover !important;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.rep-content {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+
+    padding: 3rem;
+    width: 70%;
+}
+.name {
+    font-size: 3rem;
+    color: rgb(30, 30, 30);
+}
+.description {
+    height: 50%;
+    color: rgb(69, 64, 64);
+    font-size: 1.4rem;
+
+    padding-left: 1rem;
+}
+.info {
+    height: 25%;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(2, 20%) 60%;
+}
+.info > * {
+     /* margin-right: 3rem; */
+        padding: 3rem 3rem;
+        width: 100%;
+        font-size: 1.4rem;
+
+        /* border: 1px solid #ed6072; */
+        color: white;
+        background-color:  #303333;
+        letter-spacing: 1px;
+    }

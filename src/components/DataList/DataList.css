@@ -6,6 +6,20 @@
     overflow-y: scroll;
 }
 
+.title {
+    color: white;
+    text-align: center;
+
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+.paragraph {
+    color: white;
+    text-align: center;
+
+    font-size: 1.5rem;
+    margin-bottom: 5rem;
+}
 .data-list-content {
     display: flex;
     flex-direction: column;
@@ -28,9 +42,11 @@ a {
     height: 7rem;
 
     margin: auto;
-    color: black;
+    color: white;
 
-    background-color: #fff;
+    border: none;
+
+    background-color: #943b46;
     outline: none;
 }
 .data-list-loaded > .loader {
@@ -54,13 +70,18 @@ a {
     width: 15rem;
     height: 15rem;
 
-    border: 3px solid white;
+    /* border: 3px solid white; */
     
     margin: auto;
+
+    text-align: center;
+
+    font-size: 9rem;
+    color: #fff;
     
-    -webkit-animation: rotating 2s linear infinite;
-    -moz-animation: rotating 2s linear infinite;
-    -ms-animation: rotating 2s linear infinite;
-    -o-animation: rotating 2s linear infinite;
-    animation: rotating 2s linear infinite;
+    -webkit-animation: rotating 4s linear infinite;
+    -moz-animation: rotating 4s linear infinite;
+    -ms-animation: rotating 4s linear infinite;
+    -o-animation: rotating 4s linear infinite;
+    animation: rotating 4s linear infinite;
 }
