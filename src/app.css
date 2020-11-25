@@ -69,3 +69,15 @@ html {
 body  {
     background-color: #303333;
 }
+
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+@media only screen and (max-width: 748px) {
+  html {
+    font-size: 52.5%;
+  }
+}
