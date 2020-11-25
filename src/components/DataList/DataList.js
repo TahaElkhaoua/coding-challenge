@@ -8,7 +8,8 @@ import { URL } from '../../config/config'
 import RepoTemplate from './template/RepoTemplate'
 import './DataList.css'
 
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
+import { BiError } from "react-icons/bi"
 
 
 
@@ -80,7 +81,12 @@ class DataList extends Component {
     //render the repositories into a list
     renderRepos(){
          //check if there s an error if not display data through template
-        return ((this.state.error) ? (<div className="error-danger">{this.state.errorMsg}</div>)
+        return ((this.state.error) ? (<div className="error-danger">
+            {this.state.errorMsg} <BiError /> 
+                <div>
+                    <Link  to="/0"><button className="home-page">Load home page?</button></Link>
+                </div>
+            </div>)
             : this.state.displayedRepos.map((repo, i) => {
                 return (
                     <RepoTemplate key={i}
