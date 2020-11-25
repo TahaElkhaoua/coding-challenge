@@ -22,10 +22,12 @@ they can be summed into the following :
 
 # HOW TO RUN PROJECT
 
-All you have to do to run our App is clone the project using the following command :
-    git clone git@github.com:TahaElkhaoua/coding-challenge.git
+    All you have to do to run our App is clone the project using the following command :
+        git clone git@github.com:TahaElkhaoua/coding-challenge.git
 
-Navigate to app directory and run : npm start
+    or the download the zip file from github
+    run : npm install
+    Navigate to app directory and run : npm start
 
 Have a wonderful experience 👽
 
