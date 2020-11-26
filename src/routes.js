@@ -10,8 +10,8 @@ export const Routes = () => {
     return (
         <Layout>
             <Switch>
-                <Route path='/:page' component={DataList}/>
-                <Route path='/' component={DataList}/>
+                <Route path='/:page?' component={DataList}/>
+                {/* <Route path='/' component={DataList}/> */}
             </Switch>
         </Layout>
     )

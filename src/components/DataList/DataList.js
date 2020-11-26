@@ -32,13 +32,13 @@ class DataList extends Component {
     //Getting the JSON Data through axios
     UNSAFE_componentWillMount(){
         //Data will be fetched here before the component renders
-        this.loadRepos()
+        this.loadRepos((this.state.page) ? this.state.page : 0)
     }
 
-    componentWillReceiveProps(props){ // handle page update
+    UNSAFE_componentWillReceiveProps(props){ // handle page update
         this.myRef.current.scrollTo(0, 0);
         this.repos = [] 
-            this.setState({
+        this.setState({
                 page: (props.match.params.page) ? props.match.params.page : 0, //page number,
                 displayedRepos: [], // An Array to hold all the displayed repos
                 error: false, //Error Detector
@@ -46,10 +46,10 @@ class DataList extends Component {
                 showNext: false,
                 currentSlice: 0
             })
-            this.loadRepos()
+            this.loadRepos((props.match.params.page) ? props.match.params.page : 0) //because set state is an asyncronous functions
     }
 
-    loadRepos(){
+    loadRepos(page){
         //check if repos is already Fetched
         if(this.repos.length !== 0){
             (this.state.displayedRepos.length === this.repos.length) ? //check if all repos are displayed 
@@ -64,7 +64,7 @@ class DataList extends Component {
             return true; // stop here if data already exists
         }
         //the actual data fetch code
-        axios.get(`${URL}&page=${this.state.page}`)
+        axios.get(`${URL}&page=${page}`)
         .then(result => { //Data Retrieved Successfuly
             this.repos = result.data.items
             this.setState({
@@ -84,7 +84,7 @@ class DataList extends Component {
         return ((this.state.error) ? (<div className="error-danger">
             {this.state.errorMsg} <BiError /> 
                 <div>
-                    <Link  to="/0"><button className="home-page">Load home page?</button></Link>
+                    <Link  to="/"><button className="home-page">Load home page?</button></Link>
                 </div>
             </div>)
             : this.state.displayedRepos.map((repo, i) => {
